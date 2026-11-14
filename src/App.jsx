@@ -48,6 +48,7 @@ function App() {
   const [foodName, setFoodName] = useState("");
   const [foodPrice, setFoodPrice] = useState("");
   const [foodImage, setFoodImage] = useState("");
+  const [editingFoodId, setEditingFoodId] = useState(null);
 
   // CUSTOMER INFORMATION
   const [buyerName, setBuyerName] = useState("");
@@ -82,18 +83,28 @@ function App() {
     localStorage.setItem("orders", JSON.stringify(orders));
   }, [orders]);
 
-  // Continue with your existing functions below...
+  // RESET THE FOOD FORM
+  const resetFoodForm = () => {
+    setFoodName("");
+    setFoodPrice("");
+    setFoodImage("");
+    setEditingFoodId(null);
+  };
 
-  const addFood = (e) => {
+  // ADD A NEW FOOD OR UPDATE AN EXISTING FOOD
+  const saveFood = (e) => {
     e.preventDefault();
 
-    if (!foodName.trim() || Number(foodPrice) <= 0) {
+    if (
+      !foodName.trim() ||
+      !Number.isFinite(Number(foodPrice)) ||
+      Number(foodPrice) <= 0
+    ) {
       alert("Please enter a valid food name and price.");
       return;
     }
 
-    const newFood = {
-      id: Date.now(),
+    const foodDetails = {
       name: foodName.trim(),
       price: Number(foodPrice),
       image:
@@ -101,13 +112,57 @@ function App() {
         "https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=600",
     };
 
-    setFoods([...foods, newFood]);
+    if (editingFoodId !== null) {
+      setFoods((previousFoods) =>
+        previousFoods.map((food) =>
+          food.id === editingFoodId ? { ...food, ...foodDetails } : food,
+        ),
+      );
+      setCart((previousCart) =>
+        previousCart.map((item) =>
+          item.id === editingFoodId ? { ...item, ...foodDetails } : item,
+        ),
+      );
+      alert("Food successfully updated!");
+    } else {
+      // eslint-disable-next-line react-hooks/purity
+      const newFood = { id: Date.now(), ...foodDetails };
+      setFoods((previousFoods) => [...previousFoods, newFood]);
+      alert("Food successfully added!");
+    }
 
-    setFoodName("");
-    setFoodPrice("");
-    setFoodImage("");
+    resetFoodForm();
+  };
 
-    alert("Food successfully added!");
+  // LOAD A FOOD ITEM INTO THE FORM FOR EDITING
+  const editFood = (food) => {
+    setFoodName(food.name);
+    setFoodPrice(String(food.price));
+    setFoodImage(food.image || "");
+    setEditingFoodId(food.id);
+    document.getElementById("add-food")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  // DELETE A FOOD ITEM
+  const deleteFood = (food) => {
+    const confirmed = window.confirm(
+      `Are you sure you want to delete ${food.name}? This will also remove it from the current cart.`,
+    );
+
+    if (!confirmed) return;
+
+    setFoods((previousFoods) =>
+      previousFoods.filter((item) => item.id !== food.id),
+    );
+    setCart((previousCart) =>
+      previousCart.filter((item) => item.id !== food.id),
+    );
+
+    if (editingFoodId === food.id) resetFoodForm();
+    alert("Food successfully deleted!");
   };
 
   const addToCart = (food) => {
@@ -313,6 +368,23 @@ function App() {
                       + Add to Cart
                     </button>
                   </div>
+
+                  <div className="d-flex gap-2 mt-2">
+                    <button
+                      type="button"
+                      className="btn btn-outline-primary btn-sm flex-fill"
+                      onClick={() => editFood(food)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-outline-danger btn-sm flex-fill"
+                      onClick={() => deleteFood(food)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -325,10 +397,10 @@ function App() {
         <div className="container">
           <div className="section-title">
             <p>MANAGE YOUR MENU</p>
-            <h2>Add New Food</h2>
+            <h2>{editingFoodId !== null ? "Edit Food" : "Add New Food"}</h2>
           </div>
 
-          <form className="food-form" onSubmit={addFood}>
+          <form className="food-form" onSubmit={saveFood}>
             <div className="mb-3">
               <label className="form-label">Food Name</label>
               <input
@@ -367,8 +439,18 @@ function App() {
             </div>
 
             <button className="btn add-food-btn" type="submit">
-              + ADD FOOD
+              {editingFoodId !== null ? "UPDATE FOOD" : "+ ADD FOOD"}
             </button>
+
+            {editingFoodId !== null && (
+              <button
+                className="btn btn-secondary ms-2"
+                type="button"
+                onClick={resetFoodForm}
+              >
+                CANCEL EDIT
+              </button>
+            )}
           </form>
         </div>
       </section>
