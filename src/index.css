@@ -1,0 +1,304 @@
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #fffaf3;
+  color: #252525;
+}
+
+.custom-nav {
+  background: #24231f;
+  padding: 16px 0;
+}
+
+.navbar-brand {
+  color: #ff713b !important;
+  font-size: 21px;
+}
+
+.nav-link {
+  color: white !important;
+  margin-left: 15px;
+}
+
+.nav-link:hover {
+  color: #ff713b !important;
+}
+
+.hero-section {
+  background: #fff0df;
+  padding: 85px 0;
+  min-height: 500px;
+}
+
+.hero-label {
+  color: #f16a35;
+  font-weight: bold;
+  letter-spacing: 3px;
+  font-size: 12px;
+}
+
+.hero-section h1 {
+  font-size: 55px;
+  font-weight: 800;
+  line-height: 1.15;
+  margin: 20px 0;
+}
+
+.hero-section h1 span {
+  color: #f16a35;
+}
+
+.hero-description {
+  color: #666;
+  line-height: 1.8;
+  max-width: 450px;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 470px;
+  height: 340px;
+  object-fit: cover;
+  border-radius: 25px;
+}
+
+.order-btn,
+.add-food-btn,
+.checkout-btn {
+  background: #f16a35;
+  color: white;
+  padding: 13px 25px;
+  font-weight: bold;
+  border: none;
+}
+
+.order-btn:hover,
+.add-food-btn:hover,
+.checkout-btn:hover {
+  background: #d95020;
+  color: white;
+}
+
+.section-padding {
+  padding-top: 75px;
+  padding-bottom: 75px;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-title p {
+  color: #f16a35;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.section-title h2 {
+  font-size: 38px;
+  font-weight: 800;
+}
+
+.food-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px #00000012;
+  height: 100%;
+  transition: 0.3s;
+}
+
+.food-card:hover {
+  transform: translateY(-7px);
+}
+
+.food-card img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+}
+
+.food-info {
+  padding: 20px;
+}
+
+.food-price {
+  color: #f16a35;
+  font-weight: bold;
+}
+
+.add-btn {
+  background: #fff0e7;
+  color: #e75c2b;
+  font-weight: bold;
+}
+
+.add-btn:hover {
+  background: #f16a35;
+  color: white;
+}
+
+.add-section {
+  background: #f5eee3;
+}
+
+.food-form {
+  max-width: 650px;
+  margin: auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px #00000010;
+}
+
+.food-form input {
+  padding: 12px;
+}
+
+.food-form .form-label {
+  font-weight: bold;
+}
+
+.empty-cart {
+  background: white;
+  padding: 30px;
+  text-align: center;
+  border: 1px dashed #ddd;
+  border-radius: 10px;
+  color: #777;
+}
+
+.cart-item {
+  background: white;
+  padding: 18px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 3px 12px #00000008;
+}
+
+.cart-item p {
+  color: #777;
+  margin: 0;
+  font-size: 13px;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.quantity-control button {
+  border: 1px solid #ddd;
+  background: white;
+  padding: 5px 12px;
+  border-radius: 5px;
+}
+
+.quantity-control button:hover {
+  background: #f16a35;
+  color: white;
+}
+
+.quantity-control .remove-btn {
+  color: #d33;
+}
+
+.checkout-box {
+  background: #24231f;
+  color: white;
+  padding: 25px;
+  border-radius: 10px;
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkout-box h3 {
+  color: #ff7945;
+  font-weight: bold;
+}
+
+.checkout-btn:disabled {
+  background: #888;
+  cursor: not-allowed;
+}
+
+.orders-section {
+  background: #f5eee3;
+}
+
+.order-card {
+  background: white;
+  border-radius: 10px;
+  padding: 22px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.order-card p {
+  color: #777;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.footer {
+  background: #24231f;
+  color: white;
+  padding: 35px 15px;
+  text-align: center;
+}
+
+.footer h4 {
+  color: #ff713b;
+  font-weight: bold;
+}
+
+.footer p {
+  color: #ccc;
+  font-size: 13px;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 55px 0;
+  }
+
+  .hero-section h1 {
+    font-size: 40px;
+  }
+
+  .hero-image {
+    margin-top: 30px;
+    height: 260px;
+  }
+
+  .cart-item {
+    flex-wrap: wrap;
+  }
+
+  .quantity-control {
+    flex-wrap: wrap;
+  }
+
+  .checkout-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+}
